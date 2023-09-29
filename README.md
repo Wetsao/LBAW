@@ -55,7 +55,7 @@ Every project is different, so consider which of these sections apply to yours. 
 Choose a self-explaining name for your project.
 
 ## Description
-Software tool for tracking and managing projects. This application is designed to help project managers plan, coordinate, and execute tasks that need to be completed to make progress on the project at hand.
+Software tool for tracking and managing projects. This application is designed to help users plan, coordinate, and execute tasks that need to be completed to make progress on the project at hand.
 
 ## Badges
 On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
