@@ -57,6 +57,32 @@ Choose a self-explaining name for your project.
 ## Description
 Software tool for tracking and managing projects. This application is designed to help users plan, coordinate, and execute tasks that need to be completed to make progress on the project at hand.
 
+## Main Features
+    -Login
+    -Accept Email Invitation
+    -Create Project
+    -View My Projects
+    -Mark Project as Favorite
+    -Create Task
+    -Manage Tasks
+    -Assign Users to Tasks
+    -View Task Details
+    -Comment on Task
+    -Complete an Assigned Task
+    -Leave Project
+    -View Project Team
+    -View Team Members Profiles
+    -Search Tasks
+    -Add User to Project
+    -Assign New Coordinator
+    -Edit Project Details
+    -Assign Task to Member
+    -Remove Project Member
+    -Archive Project
+    -Notifications
+    -Browse Projects
+    -View Project Details
+
 ## Badges
 On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
 
