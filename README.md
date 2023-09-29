@@ -92,9 +92,9 @@ The ooooooooooooooo system aims to simplify project management, improve team col
     -View Project Details
 
 ## User Profiles
-    -Admin
-    -Project Coordinator
-    -Project Member
+    The targeted users are organized into two distinct groups, each having unique sets of permissions.
+    -Project Member: any user can join a project or create a project of their own and manage project tasks (assigning them to users, commenting on them, completing them).
+    -Project Coordinator: the users who create projects or have this role assigned can manage other project members (giving them permissions or removing them) as well as editing overall project details.
 
 ## Badges
 On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
