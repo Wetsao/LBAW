@@ -60,10 +60,10 @@ The primary goal of ooooooooooo is to provide organizations with an intuitive we
 
 This application allows users to create and manage projects, break them down into tasks, assign team members to these tasks, and monitor progress. Projects and tasks may be distributed across different departments or locations, and the system will centralize all project-related information, making it accessible to authorized users.
 
-Users are categorized into groups with varying permissions. These groups include administrators, who have complete access to project creation, task assignment, and user management within their designated projects. Regular users, on the other hand, have limited permissions. They can view project details, access assigned tasks, and update task statuses but cannot create new projects or assign tasks to other users unless they are designated as administrators for a specific project.
+Users are categorized into groups with varying permissions. These groups include coordinator, who have complete access to project creation, task assignment, and user management within their designated projects. Regular users, on the other hand, have limited permissions. They can view project details, access assigned tasks, and update task statuses but cannot create new projects or assign tasks to other users unless they are designated as coordinator for a specific project. There are also administrators who have access to every project without the ability to modify it, they will act like moderators.
 
 
-The ooooooooooooooo system aims to simplify project management, improve team collaboration, and empower administrators to efficiently oversee their projects while ensuring data security and user access control.
+The ooooooooooooooo system aims to simplify project management, improve team collaboration, and empower coordinators- to efficiently oversee their projects while ensuring data security and user access control.
 
 ## Main Features
     -Login
