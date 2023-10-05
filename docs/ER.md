@@ -1,6 +1,6 @@
 # ER: Requirements Specification Component
 
-
+Software tool for tracking and managing projects. This application is designed to help users plan, coordinate, and execute tasks that need to be completed to make progress on the project at hand.
 
 # A1: ProjeTatu
 
