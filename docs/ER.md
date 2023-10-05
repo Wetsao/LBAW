@@ -137,4 +137,20 @@ This artifact includes two elements:
 
 ## 1. Sitemap
 
+The following Sitemap depicts the different pages intended in our application and the relationships in between them. Our system is organized in 5 main groups: 
+1. The **Unauthenticated User Pages** displays the information about the page and offers the possibility of entering the system as an authenticated user. 
+2. The **Public Pages** contain the general, public knowledge on the use of the application. 
+3. The **Authenticated User Pages** that allows an user to manage their profile. 
+4. The **Authenticated Admin Pages** that restrics the administrator to manage the usage of the app itself.
+5. The **Project Pages** themselves which include the main interactions regarding all the projects available (which are here in a stack) and all the tasks assigned to them.
+
+<p align="center" justify="center">
+  <img src="images/sitemap.png"/>
+</p>
+<p align="center" justify="center">
+  <b><i>Fig1. Sitemap</i></b>
+</p>
+<br>
+<br />
+
 ## 2. Wireframes
