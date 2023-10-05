@@ -187,3 +187,18 @@ The following Sitemap depicts the different pages intended in our application an
 </p>
 <br>
 <br />
+
+## Artefacts Checklist
+
+* The artefacts checklist is available at: <https://docs.google.com/spreadsheets/d/1eDBxYIYvh_G1SrmzsTyPRs5LCxtaLW-aBPjxWDdM83g/edit?usp=sharing>
+
+## Team
+
+- Alexandre Morais up201906049
+- Nuno Ramos up201906051
+- Bruno Leal up202008047
+- Vitor Bizarro up202007888l
+
+---
+
+GROUP23156, 05/10/2023
