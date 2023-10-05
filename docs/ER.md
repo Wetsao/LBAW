@@ -135,6 +135,6 @@ This artifact includes two elements:
  1. A sitemap, defining how the information is organized in pages;
  2. A set of wireframes, defining the functionality and the content for each page.
 
-# 1. Sitemap
+## 1. Sitemap
 
-# 2. Wireframes
+## 2. Wireframes
