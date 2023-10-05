@@ -197,7 +197,7 @@ The following Sitemap depicts the different pages intended in our application an
 - Alexandre Morais up201906049
 - Nuno Ramos up201906051
 - Bruno Leal up202008047
-- Vitor Bizarro up202007888l
+- Vitor Bizarro up202007888
 
 ---
 
