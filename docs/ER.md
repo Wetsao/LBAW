@@ -148,9 +148,42 @@ The following Sitemap depicts the different pages intended in our application an
   <img src="images/sitemap.png"/>
 </p>
 <p align="center" justify="center">
-  <b><i>Fig1. Sitemap</i></b>
+  <b><i>Fig2. Sitemap</i></b>
 </p>
 <br>
 <br />
 
-## 2. Wireframes
+# 2. Wireframes
+
+## UI01 - Login 
+
+<p align="center" justify="center">
+  <img src="images/Login.png"/>
+</p>
+<p align="center" justify="center">
+  <b><i>Fig3. Login</i></b>
+</p>
+<br>
+<br />
+
+## UI01 - View Projects
+
+<p align="center" justify="center">
+  <img src="images/ViewProjects.png"/>
+</p>
+<p align="center" justify="center">
+  <b><i>Fig4. View Projects</i></b>
+</p>
+<br>
+<br />
+
+## UI07 - User profile
+
+<p align="center" justify="center">
+  <img src="images/Profile.png"/>
+</p>
+<p align="center" justify="center">
+  <b><i>Fig5. User Profile</i></b>
+</p>
+<br>
+<br />
