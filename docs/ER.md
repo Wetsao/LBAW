@@ -121,3 +121,20 @@ TR10 | Ethics | The system must respect the ethical principles in software devel
 Identifier | Name | Description |
 --- | --- | --- |
 BR01 | Deadline | The system should be ready to use at the beggining of december |
+
+# A3: Information Architecture
+
+This artifact presents an overview of the information architecture about the system to be developed. It has the following goals:
+
+ 1. Help identify and describe the user requirements, and raise new ones;
+ 2. Preview and empirically test the user interface of the product to be developed;
+ 3. Enable quick and multiple iterations on the design of the user interface.
+
+This artifact includes two elements:
+
+ 1. A sitemap, defining how the information is organized in pages;
+ 2. A set of wireframes, defining the functionality and the content for each page.
+
+# 1. Sitemap
+
+# 2. Wireframes
