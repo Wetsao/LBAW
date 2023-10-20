@@ -79,7 +79,7 @@ This artifact also contains the database's workload as well as the complete data
 
 GROUP23156, DD/10/2023
 
-- Alexandre Morais up201906049 (Editor)
+- Alexandre Morais up201906049
 - Nuno Ramos up201906051
 - Bruno Leal up202008047
 - Vitor Bizarro up202007888
