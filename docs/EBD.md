@@ -1,6 +1,10 @@
 # EBD: Database Specification Component
 
+Software tool for tracking and managing projects. This application is designed to help users plan, coordinate, and execute tasks that need to be completed to make progress on the project at hand.
+
 ## A4: Conceptual Data Model
+
+This artifact presents the Conceptual Data Model using a UML class diagram to document the model. It contains the identification and description of the entities and relationships that are relevant to the database specification.
 
 ### 1. Class Diagram
 
@@ -11,6 +15,8 @@
 
 
 ## A5: Relational Schema, validation and schema refinement
+
+This artifact contains the Relational Schema made by mapping the Conceptual Data Model and represents the relation schema, attributes, domains, primary keys, foreign keys and other integrity rules that will be included in the database.
 
 ### 1. Relational Schema
 
@@ -38,6 +44,34 @@ Domain Name| Domain Specification |
 --- | --- |
 today | TIMESTAMP DEFAULT CURRENT_DATE
 task_status | ENUM('CREATED','IN PROGRESS','COMPLETE')
+
+### 3. Schema validation
+
+## A6: Indexes, triggers, transactions and database population
+
+This artifact contains the physical schema of the database, the identification and characterisation of the indexes, the support of data integrity rules with triggers and the definition of the database user-defined functions.
+
+Furthermore, it also shows the database transactions needed to assure the integrity of the data in the presence of concurrent accesses. For each transaction, the isolation level is explicitly stated and justified.
+
+This artifact also contains the database's workload as well as the complete database creation script, including all SQL necessary to define all integrity constraints, indexes and triggers. Finally, this artifact also includes a separate script with INSERT statements to populate the database.
+
+### 1. Database Workload
+
+### 2. Proposed Indices
+
+#### 2.1. Performance Indices
+
+#### 2.2. Full-text Search Indices
+
+### 3. Triggers
+
+### 4. Transactions
+
+## Annex A. SQL Code
+
+### A.1. Database Schema
+
+### A.2. Database Population
 
 
 
