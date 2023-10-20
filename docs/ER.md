@@ -2,7 +2,7 @@
 
 Software tool for tracking and managing projects. This application is designed to help users plan, coordinate, and execute tasks that need to be completed to make progress on the project at hand.
 
-# A1: ProjeTatu
+## A1: ProjeTatu
 
 The primary goal of this project is to provide organizations,teams, or individuals with an intuitive web-based project management solution that optimizes project planning, task allocation, and progress tracking.
 
@@ -12,11 +12,11 @@ This project allows users to create and manage projects, break them down into ta
 
 Users are categorized into three different groups, admnistrators, authenticated and non-authenticated user. Admnistrators will not be able to create of participate in projects but will serve as the higher manager of the whole system, as it will be able to browse and view projects details and moderate users. Authenticated Users will also be categorized into two groups, Coordinator and Member, with varying permissions within the projects. Coordinator are Users that created a project and have complete access to it, they can add and remove team members as well as assign new coordinators, edit project details and change the project status. Members will be able to manage tasks, assign users to them as well as comment on them and change their status. Authenticated Users can also be in more than one project. Non-authenticated users simply have access to registration and login.
 
-# A2: Actors and User stories
+## A2: Actors and User stories
 
 This artifact identifies the actors and their user stories while acting as documentation for the project’s requirements.
 
-## 1. Actors
+### 1. Actors
 
 <p align="center" justify="center">
   <img src="images/UseCases.png"/>
@@ -35,9 +35,9 @@ Project Member | Authenticated user; Allowed to create tasks, assign users to ta
 Project Coordinator | Authenticated user; Able to add users to project, assign new coordinator and archieve project;
 Admin | Can browse projects and view project details; Not able to create or participate in projects
 
-## 2. User Stories
+### 2. User Stories
 
-### 2.1. User
+#### 2.1. User
 
 Identifier | Name | Priority | Description |
 --- |--- | --- | --- |
@@ -49,14 +49,14 @@ US05 | Edit profile | high | As a User I want to modify my profile so that I can
 US06 | Sign-out | high | As a User, I want to be able to sign out of the system, so that I can stop using my account |
 US07 | Mark project as favourite | medium |  As a User, I want to mark one or more projects that I am currently on as favourite, so that it's easier to follow it's development |
 
-### 2.2. Visitor
+#### 2.2. Visitor
 
 Identifier | Name | Priority | Description |
 --- | --- | --- | --- |
 US11| Sign-in | high | As a Visitor, I want to authenticate into the system, so that I have access to privileged information |
 US12 | Sign-up | high | As a Visitor, I want to register my account into the system, so that I can authenticate into the system later |
 
-### 2.3. Project Member
+#### 2.3. Project Member
 
 Identifier | Name | Priority | Description |
 --- |--- | --- | --- |
@@ -71,7 +71,7 @@ US28 | Project details | high | As a Project Member, I want to see the project d
 US29 | View team members profiles | medium | As a Project Member, I want to see the user profiles of my team members so that I can get information about someone I might need to interact with |
 US210 | Search task | medium | As a Project Member, I want to search for a specific task inside a project so that I can easily find the task I'm searching for |
 
-### 2.4. Project Coordinator 
+#### 2.4. Project Coordinator 
 
 Identifier | Name | Priority | Description |
 --- |--- | --- | --- |
@@ -83,7 +83,7 @@ US35 | Archive project | high | As a Project Coordinator, I want to archive a pr
 US36 | Remove Project Coordinator privileges | high | As a Project Coordinator, I want to remove Project Coordinator privileges from a team member, so that someone who doesnt need the privilege anymore wont keep them |
 US37 | Delete comment | high | As a Project Coordinator, I want to remove a comment from a Project Member, so that there isnt any comments unrelated to the issue in question |
 
-### 2.5. Admin
+#### 2.5. Admin
 
 Identifier | Name | Priority | Description |
 --- |--- | --- | --- |
@@ -91,9 +91,9 @@ US41 | User list | high | As an Admin, I want to see a list of all the users reg
 US42 |  Ban user | high | As an Admin, I want to ban a registred User from the system, so that i can delete a user with unwanted behavior |
 US43 | Sign-out | high | As a User, I want to be able to sign out of the system, so that I can stop using my account |
 
-## 3. Supplementary requirements
+### 3. Supplementary requirements
 
-### 3.1 Business rules
+#### 3.1 Business rules
 
 Identifier | Name| Description |
 --- | --- | --- |
@@ -101,7 +101,7 @@ BR01 | Multiple Comments | In the instance of multiple comments on a task by the
 BR02 | User Deletion | When a user is deleted all its content stays but the author/creator of the content shows up as "user-deleted" |
 BR03 | Task deadline | The deadline of a task must be greater than the creation date of the task |
 
-### 3.2 Technical requirements
+#### 3.2 Technical requirements
 
 Identifier | Name | Description |
 --- | --- | --- |
@@ -116,13 +116,13 @@ TR08 | Robustness | THe system must be prepared to handle and continue operating
 TR09 | Scalability | The system must be prepared to deal with the growth in the number of users and their actions |
 TR10 | Ethics | The system must respect the ethical principles in software development |
 
-### 3.3 Restrictions
+#### 3.3 Restrictions
 
 Identifier | Name | Description |
 --- | --- | --- |
 BR01 | Deadline | The system should be ready to use at the beggining of december |
 
-# A3: Information Architecture
+## A3: Information Architecture
 
 This artifact presents an overview of the information architecture about the system to be developed. It has the following goals:
 
@@ -135,7 +135,7 @@ This artifact includes two elements:
  1. A sitemap, defining how the information is organized in pages;
  2. A set of wireframes, defining the functionality and the content for each page.
 
-## 1. Sitemap
+### 1. Sitemap
 
 The following Sitemap depicts the different pages intended in our application and the relationships in between them. Our system is organized in 5 main groups: 
 1. The **Unauthenticated User Pages** displays the information about the page and offers the possibility of entering the system as an authenticated user. 
@@ -153,9 +153,9 @@ The following Sitemap depicts the different pages intended in our application an
 <br>
 <br />
 
-# 2. Wireframes
+### 2. Wireframes
 
-## UI01 - Login 
+#### UI01 - Login 
 
 <p align="center" justify="center">
   <img src="images/Login.png"/>
@@ -166,7 +166,7 @@ The following Sitemap depicts the different pages intended in our application an
 <br>
 <br />
 
-## UI01 - View Projects
+#### UI01 - View Projects
 
 <p align="center" justify="center">
   <img src="images/ViewProjects.png"/>
@@ -177,7 +177,7 @@ The following Sitemap depicts the different pages intended in our application an
 <br>
 <br />
 
-## UI07 - User profile
+#### UI07 - User profile
 
 <p align="center" justify="center">
   <img src="images/Profile.png"/>
