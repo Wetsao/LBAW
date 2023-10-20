@@ -188,9 +188,7 @@ The following Sitemap depicts the different pages intended in our application an
 <br>
 <br />
 
-## Artefacts Checklist
-
-* The artefacts checklist is available at: <https://docs.google.com/spreadsheets/d/1eDBxYIYvh_G1SrmzsTyPRs5LCxtaLW-aBPjxWDdM83g/edit?usp=sharing>
+## Revision history
 
 ## Team
 
