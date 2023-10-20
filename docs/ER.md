@@ -190,13 +190,11 @@ The following Sitemap depicts the different pages intended in our application an
 
 ## Revision history
 
-## Team
-
-- Alexandre Morais up201906049
-- Nuno Ramos up201906051
-- Bruno Leal up202008047
-- Vitor Bizarro up202007888
-
 ---
 
 GROUP23156, 05/10/2023
+
+- Alexandre Morais up201906049 (Editor)
+- Nuno Ramos up201906051
+- Bruno Leal up202008047
+- Vitor Bizarro up202007888
