@@ -18,105 +18,122 @@ This artifact presents the Conceptual Data Model using a UML class diagram to do
 <br>
 <br />
 
-
 ### 2. Additional Business Rules
 - GeneralUser is the conceptual name, in order to separate Admins from the rest of the users.
-
 
 ## A5: Relational Schema, validation and schema refinement
 
 This artifact contains the Relational Schema made by mapping the Conceptual Data Model and represents the relation schema, attributes, domains, primary keys, foreign keys and other integrity rules that will be included in the database.
 
 ### 1. Relational Schema
-
 Relation reference| Relation Compact Notation |
 --- | --- |
-R01 | user(<ins>id</ins>, name **NN**, email **NN** **UK**, password **NN**, isAdmin **NN DF** False)
-R02 | project(<ins>id</ins>, details, creation **NN DF** today **CK** creation<=today,delivery **NN CK** delivery>=creation, coordinator -> user)
-R03 | assigned_task (<ins>user</ins> -> user, <ins>task</ins> -> task)
-R04 | project_member(<ins>user</ins> -> user, <ins>project</ins> -> project, is_favourite **NN DF** false)
-R05 | task(<ins>id</ins>, name **NN**,  creation **NN DF** today **CK** creation<=today,delivery **NN CK** delivery>=creation, status **NN**, project -> project **NN**, creator -> user)
-R06 | comment(<ins>id</ins>, content **NN**, creation **NN DF** today **CK** creation<=today, author -> user, task -> task **NN**)
-R07 | invitation(<ins>id</ins>, user -> user **NN**, project -> project, accpeted **NN DF** false)
-RO8 | notification(<ins>id</ins>, creation **NN DF** today **CK** creation<=today, dismissed **NN**, users->user **NN**, inviation->invitation, comment->comment, task->task, project->project, type **NN** notification_type)
+R01 | users(<ins>id</ins>, name **NN**, email **NN** **UK** **CK** valid_email_format, password **NN**)
+R02 | admins(<ins>id</ins>, name **NN**, password **NN**)
+R03 | company(<ins>id</ins>, name **NN**)
+R04 | project(<ins>id</ins>, company_id -> company, name **NN**, details, creation **NN DF** today **CK** creation<=today,delivery **NN CK** delivery>=creation)
+R05 | project_member(<ins>users_id</ins> -> users, <ins>project_id</ins> -> project, is_favourite **NN DF** false)
+R06 | project_coordinator(<ins>id</ins>, users_id -> users, project_id -> project)
+R07 | task(<ins>id</ins>, project_id -> project, creator -> users, name **NN**, details, status **NN**, creation **NN DF** today **CK** creation<=today, delivery **NN CK** delivery>=creation)
+R08 | task_assigned(<ins>users_id</ins> -> users, <ins>task_id</ins> -> task)
+R09 | comment(<ins>id</ins>, task_id -> task, author -> users, content **NN**, creation **NN DF** today **CK** creation<=today)
+R10 | invitation(<ins>project_id</ins> -> project, <ins>users_id</ins> -> users, <ins>project_coordinator_id</ins> -> project_coordinator)
+R11 | notification()
 
-UK = UNIQUE KEY
+Legend:
 
-NN = NOT NULL 
+ - UK = UNIQUE KEY
 
-DF = DEFAAULT 
+ - NN = NOT NULL 
 
-CK = CHECK
+ - DF = DEFAULT 
+
+ - CK = CHECK
 
 ### 2. Domains
 Domain Name| Domain Specification |
 --- | --- |
 today | TIMESTAMP DEFAULT CURRENT_DATE
-task_status | ENUM('CREATED','IN PROGRESS','COMPLETE')
-notification_type | ENUM('project_notification','invitation_notification','task_notification','comment_notification')
-
+status | ENUM('Completed', 'Ongoing', 'Paused', 'Abandoned')
 
 ### 3. Schema validation
-
-To validate the Relational Schema obtained from the Conceptual Model, all functional dependencies are identified and the normalization of all relation schemas is accomplished. Should it be necessary, in case the scheme is not in the Boyce–Codd Normal Form (BCNF), the relational schema is refined using normalization.
-
-Table R01| user |
+Table R01| users |
 --- | --- |
-**Keys** | {id},{email}
-**Functional Dependencies:**
-FD0101 | {id} -> {email, name, password, is_Admin}
-FD0102 | {email} -> {id, name, password, is_Admin}
-**NORMAL FORM** | BCNF
+**Keys:** {id},{email} 
+**Functional Dependencies**
+FD0101 | {id} -> {name, email, password}
+FD0102 | {email} -> {id, name, password}
+**Normal Form** | BCNF
 
-Table R02| project |
+Table R02| admins |
 --- | --- |
-**Keys** | {id}
-**Functional Dependencies:**
-FD0201 | {id} -> {name, details, delivery, creation, coordinator}
-**NORMAL FORM** | BCNF
+**Keys:** {id}
+**Functional Dependencies**
+FD0201 | {id} -> {name, password}
+**Normal Form** | BCNF
 
-Table R03| assigned_task |
+Table R03| company |
 --- | --- |
-**Keys** | {user},{task}
-**Functional Dependencies:** | none |
-**NORMAL FORM** | BCNF
+**Keys:** {id}
+**Functional Dependencies**
+FD0301 | {id} -> {name}
+**Normal Form** | BCNF
 
-Table R04 | project_member |
+Table R04| project |
 --- | --- |
-**Keys** | {useer},{project}
-**Functional Dependencies:**
-FD0401 | {user, project} -> {is_favourite}
-**NORMAL FORM** | BCNF
+**Keys:** {id}
+**Functional Dependencies**
+FD0401 | {id} -> {company_id, name, details, creation, delivery}
+**Normal Form** | BCNF
 
-Table R05| task |
+Table R05| project_member |
 --- | --- |
-**Keys** | {id}
-**Functional Dependencies:**
-FD0601 | {id} -> {name, creation,delivery, status, project, creator}
-**NORMAL FORM** | BCNF
+**Keys:** {users_id, project_id}
+**Functional Dependencies**
+FD0501 | {users_id, project_id} -> {is_favourite}
+**Normal Form** | BCNF
 
-Table R06| comment |
+Table R06| project_coordinator |
 --- | --- |
-**Keys** | {id}
-**Functional Dependencies:**
-FD0601 | {id} -> {content, creation, author, task}
-**NORMAL FORM** | BCNF
+**Keys:** {id}
+**Functional Dependencies**
+FD0601 | {id} -> {users_id, project_id}
+**Normal Form** | BCNF
 
-Table R07| invitation |
+Table R07| task |
 --- | --- |
-**Keys** | {id}
-**Functional Dependencies:**
-FD0701 | {id} -> {user, project, accepted}
-**NORMAL FORM** | BCNF
+**Keys:** {id}
+**Functional Dependencies**
+FD0701 | {id} -> {project_id, creator, name, details, status, creation, delivery}
+**Normal Form** | BCNF
 
-Table R08| notification |
+Table R08| task_assigned |
 --- | --- |
-**Keys** | {id}
-**Functional Dependencies:**
-FD0801 | {id} -> {creation, dismissed, users, inviation, comment, task, project, type}
-**NORMAL FORM** | BCNF
+**Keys:** {users_id, task_id}
+**Functional Dependencies** | none
+**Normal Form** | BCNF
 
+Table R09| comment |
+--- | --- |
+**Keys:** {id}
+**Functional Dependencies**
+FD0901 | {id} -> {task_id, author, content, creation}
+**Normal Form** | BCNF
 
+Table R010| invitation |
+--- | --- |
+**Keys:** {project_id, users_id, project_coordinator_id}
+**Functional Dependencies** | none
+**Normal Form** | BCNF
+
+Table R011| notification |
+--- | --- |
+**Keys:** {}
+**Functional Dependencies**
+FD1101 | 
+**Normal Form** | BCNF
+
+Because all relations are in the Boyce–Codd Normal Form (BCNF), the relational schema is also in the BCNF and, therefore, the schema does not need to be further normalized.
 
 ## A6: Indexes, triggers, transactions and database population
 
