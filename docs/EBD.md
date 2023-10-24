@@ -160,7 +160,6 @@ This artifact also contains the database's workload as well as the complete data
 ### A.1. Database Schema
 
 ```sql
-
 DROP TABLE IF EXISTS project CASCADE;
 DROP TABLE IF EXISTS task CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
