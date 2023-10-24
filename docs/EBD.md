@@ -8,7 +8,16 @@ This artifact presents the Conceptual Data Model using a UML class diagram to do
 
 ### 1. Class Diagram
 
-        (imagem)
+
+<p align="center" justify="center">
+  <img src="images/ebd.drawio.png"/>
+</p>
+<p align="center">
+  <b><i>Fig1. Conceptual Data Model in UML</i></b>
+</p>
+<br>
+<br />
+
 
 ### 2. Additional Business Rules
 - GeneralUser is the conceptual name, in order to separate Admins from the rest of the users.
