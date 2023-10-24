@@ -29,7 +29,7 @@ R04 | project_member(<ins>user</ins> -> user, <ins>project</ins> -> project, is_
 R05 | task(<ins>id</ins>, name **NN**,  creation **NN DF** today **CK** creation<=today,delivery **NN CK** delivery>=creation, status **NN**, project -> project **NN**, creator -> user)
 R06 | comment(<ins>id</ins>, content **NN**, creation **NN DF** today **CK** creation<=today, author -> user, task -> task **NN**)
 R07 | inviation(<ins>id</ins>, user -> user **NN**, project -> project, accpeted **NN DF** false)
-RO8 | notification(<ins>id</ins>, creation **NN DF** today **CK** creation<=today, dismissed **NN**, users->user **NN**, inviation->invitation, comment->comment, task->task, project->project)
+RO8 | notification(<ins>id</ins>, creation **NN DF** today **CK** creation<=today, dismissed **NN**, users->user **NN**, inviation->invitation, comment->comment, task->task, project->project, type **NN** notification_type)
 
 
 
@@ -44,8 +44,16 @@ Domain Name| Domain Specification |
 --- | --- |
 today | TIMESTAMP DEFAULT CURRENT_DATE
 task_status | ENUM('CREATED','IN PROGRESS','COMPLETE')
+notification_type | ENUM('project_notification','invitation_notification','task_notification','comment_notification')
+
 
 ### 3. Schema validation
+
+To validate the Relational Schema obtained from the Conceptual Model, all functional dependencies are identified and the normalization of all relation schemas is accomplished. Should it be necessary, in case the scheme is not in the Boyce–Codd Normal Form (BCNF), the relational schema is refined using normalization.
+
+
+
+
 
 ## A6: Indexes, triggers, transactions and database population
 
