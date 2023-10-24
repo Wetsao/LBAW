@@ -33,14 +33,14 @@ Relation reference| Relation Compact Notation |
 --- | --- |
 R01 | user(<ins>id</ins>, name **NN**, email **NN** **UK**, password **NN**, isAdmin **NN DF** False)
 R02 | project(<ins>id</ins>, details, creation **NN DF** today **CK** creation<=today,delivery **NN CK** delivery>=creation, coordinator -> user)
-R03 | assigned_task (<ins>user<ins> -> user, <ins>task</ins> -> task)
+R03 | assigned_task (<ins>user</ins> -> user, <ins>task</ins> -> task)
 R04 | project_member(<ins>user</ins> -> user, <ins>project</ins> -> project, is_favourite **NN DF** false)
 R05 | task(<ins>id</ins>, name **NN**,  creation **NN DF** today **CK** creation<=today,delivery **NN CK** delivery>=creation, status **NN**, project -> project **NN**, creator -> user)
 R06 | comment(<ins>id</ins>, content **NN**, creation **NN DF** today **CK** creation<=today, author -> user, task -> task **NN**)
-R07 | inviation(<ins>id</ins>, user -> user **NN**, project -> project, accpeted **NN DF** false)
+R07 | invitation(<ins>id</ins>, user -> user **NN**, project -> project, accpeted **NN DF** false)
 RO8 | notification(<ins>id</ins>, creation **NN DF** today **CK** creation<=today, dismissed **NN**, users->user **NN**, inviation->invitation, comment->comment, task->task, project->project, type **NN** notification_type)
 
-
+UK = UNIQUE KEY
 
 NN = NOT NULL 
 
@@ -60,7 +60,61 @@ notification_type | ENUM('project_notification','invitation_notification','task_
 
 To validate the Relational Schema obtained from the Conceptual Model, all functional dependencies are identified and the normalization of all relation schemas is accomplished. Should it be necessary, in case the scheme is not in the Boyce–Codd Normal Form (BCNF), the relational schema is refined using normalization.
 
+Table R01| user |
+--- | --- |
+**Keys** | {id},{email}
+**Functional Dependencies:**
+FD0101 | {id} -> {email, name, password, is_Admin}
+FD0102 | {email} -> {id, name, password, is_Admin}
+**NORMAL FORM** | BCNF
 
+Table R02| project |
+--- | --- |
+**Keys** | {id}
+**Functional Dependencies:**
+FD0201 | {id} -> {name, details, delivery, creation, coordinator}
+**NORMAL FORM** | BCNF
+
+Table R03| assigned_task |
+--- | --- |
+**Keys** | {user},{task}
+**Functional Dependencies:** | none |
+**NORMAL FORM** | BCNF
+
+Table R04 | project_member |
+--- | --- |
+**Keys** | {useer},{project}
+**Functional Dependencies:**
+FD0401 | {user, project} -> {is_favourite}
+**NORMAL FORM** | BCNF
+
+Table R05| task |
+--- | --- |
+**Keys** | {id}
+**Functional Dependencies:**
+FD0601 | {id} -> {name, creation,delivery, status, project, creator}
+**NORMAL FORM** | BCNF
+
+Table R06| comment |
+--- | --- |
+**Keys** | {id}
+**Functional Dependencies:**
+FD0601 | {id} -> {content, creation, author, task}
+**NORMAL FORM** | BCNF
+
+Table R07| invitation |
+--- | --- |
+**Keys** | {id}
+**Functional Dependencies:**
+FD0701 | {id} -> {user, project, accepted}
+**NORMAL FORM** | BCNF
+
+Table R08| notification |
+--- | --- |
+**Keys** | {id}
+**Functional Dependencies:**
+FD0801 | {id} -> {creation, dismissed, users, inviation, comment, task, project, type}
+**NORMAL FORM** | BCNF
 
 
 
