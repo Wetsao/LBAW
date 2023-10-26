@@ -54,7 +54,7 @@ Legend:
 Domain Name| Domain Specification |
 --- | --- |
 today | TIMESTAMP DEFAULT CURRENT_DATE
-status | ENUM('Completed', 'Ongoing', 'Paused', 'Abandoned')
+status | ENUM('Completed', 'Ongoing', 'Paused', 'Abandoned', 'Late')
 notification_type | ENUM('project_notification','invitation_notification','task_notification','comment_notification')
 
 ### 3. Schema validation
