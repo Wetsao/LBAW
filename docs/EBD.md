@@ -332,8 +332,6 @@ CREATE TABLE invitation(
 
 ### A.2. Database Population
 
-## Revision history
-
 ```sql
 -- Populate ProjeTatu database
 
@@ -864,6 +862,8 @@ INSERT INTO invitation (project_id, users_id, project_coordinator_id) VALUES
 --"project_coordinator" table, 30 rows
 --"invitation" table, 10 rows
 ```
+
+## Revision history
 
 ---
 
