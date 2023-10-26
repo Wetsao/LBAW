@@ -434,17 +434,15 @@ CREATE INDEX idx_task_project_id ON task USING btree (project_id);
 
 -- FULL-TEXT SEARCH INDEX
 
--- Add column to work to store computed ts_vectors.
-ALTER TABLE work
+ALTER TABLE project
 ADD COLUMN tsvectors TSVECTOR;
 
--- Create a function to automatically update ts_vectors.
 CREATE FUNCTION project_search_update() RETURNS TRIGGER AS $$
 BEGIN
  IF TG_OP = 'INSERT' THEN
         NEW.tsvectors = (
-         setweight(to_tsvector('english', NEW.title), 'A') ||
-         setweight(to_tsvector('english', NEW.obs), 'B')
+         setweight(to_tsvector('english', NEW.name), 'A') ||
+         setweight(to_tsvector('english', NEW.details), 'B')
         );
  END IF;
  IF TG_OP = 'UPDATE' THEN
@@ -459,15 +457,12 @@ BEGIN
 END $$
 LANGUAGE plpgsql;
 
--- Create a trigger before insert or update on work.
 CREATE TRIGGER project_search_update
  BEFORE INSERT OR UPDATE ON project
  FOR EACH ROW
  EXECUTE PROCEDURE project_search_update();
 
-
--- Finally, create a GIN index for ts_vectors.
-CREATE INDEX search_idx ON work USING GIN (tsvectors);
+CREATE INDEX search_idx ON project USING GIN (tsvectors);
 
 
 -------------------------------------------------------------------------------------------------------------------------------
