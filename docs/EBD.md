@@ -145,6 +145,20 @@ This artifact also contains the database's workload as well as the complete data
 
 ### 1. Database Workload
 
+Relation | Relation name       | Order of magnitude            | Estimated growth
+---      | ---                 | ---                           | --- 
+R01      | users               | 10 k (tens of thousands)      | 10 (tens) / day          
+R02      | admins              | 10 (tens)                     | 1 (one) / year
+R03      | company             | 100 (hundreds)                | 1 / week
+R04      | project             | 1 k (thousands)               | 1 / day
+R05      | project_member      | 10 k                          | 10 / day
+R06      | project_coordinator | 1 k                           | 1 / day
+R07      | task                | 100 k (hundreds of thousands) | 100 (hundred) / day
+R08      | task_assigned       |                               | 
+R09      | comment             | 1 M (million)                 | 1 k (thousands) / day
+R10      | invitation          | 10 k                          | 10 / day
+R11      | notification        | 1 M                           | 1 k / day
+
 ### 2. Proposed Indices
 
 #### 2.1. Performance Indices
