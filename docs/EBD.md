@@ -29,7 +29,7 @@ This artifact contains the Relational Schema made by mapping the Conceptual Data
 Relation reference| Relation Compact Notation |
 --- | --- |
 R01 | users(<ins>id</ins>, name **NN**, email **NN** **UK** **CK** valid_email_format, password **NN**)
-R02 | admins(<ins>id</ins>, name **NN**, password **NN**)
+R02 | admins(<ins>id</ins>, name **NN**, email **NN** **UK** **CK** valid_email_format, password **NN**)
 R03 | company(<ins>id</ins>, name **NN**)
 R04 | project(<ins>id</ins>, company_id -> company, name **NN**, details, creation **NN DF** today **CK** creation<=today,delivery **NN CK** delivery>=creation)
 R05 | project_member(<ins>users_id</ins> -> users, <ins>project_id</ins> -> project, is_favourite **NN DF** false)
@@ -70,7 +70,7 @@ Table R02| admins |
 --- | --- |
 **Keys:** {id}
 **Functional Dependencies**
-FD0201 | {id} -> {name, password}
+FD0201 | {id} -> {name, email, password}
 **Normal Form** | BCNF
 
 Table R03| company |
@@ -149,7 +149,7 @@ This artifact also contains the database's workload as well as the complete data
 Relation | Relation name       | Order of magnitude            | Estimated growth
 ---      | ---                 | ---                           | --- 
 R01      | users               | 10 k (tens of thousands)      | 10 (tens) / day          
-R02      | admins              | 10 (tens)                     | 1 (one) / year
+R02      | admins              | 1 (one)                       | 1 (one) / year
 R03      | company             | 100 (hundreds)                | 1 / week
 R04      | project             | 1 k (thousands)               | 1 / day
 R05      | project_member      | 10 k                          | 10 / day
@@ -251,9 +251,11 @@ DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS invitation;
 
 DROP TYPE IF EXISTS status;
+DROP TYPE IF EXISTS notification_type;
 
 
-CREATE TYPE status AS ENUM ('Completed', 'Ongoing', 'Paused', 'Abandoned');
+CREATE TYPE status AS ENUM ('Completed', 'Ongoing', 'Paused', 'Abandoned', 'Overdue');
+CREATE TYPE notification_type AS ENUM('project_notification','invitation_notification','task_notification','comment_notification');
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
@@ -266,7 +268,9 @@ CREATE TABLE users(
 CREATE TABLE admins(
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL, 
-    password TEXT NOT NULL
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    CONSTRAINT valid_email_format CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
 );
 
 CREATE TABLE company(
@@ -328,6 +332,10 @@ CREATE TABLE invitation(
     users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     project_coordinator_id INTEGER NOT NULL REFERENCES project_coordinator(id) ON DELETE CASCADE,
     PRIMARY KEY(project_id, users_id, project_coordinator_id)
+);
+
+CREATE TABLE notifications(
+
 );
 ```
 
