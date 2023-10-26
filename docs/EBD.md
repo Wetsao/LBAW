@@ -68,9 +68,10 @@ FD0102 | {email} -> {id, name, password}
 
 Table R02| admins |
 --- | --- |
-**Keys:** {id}
+**Keys:** {id},{email}
 **Functional Dependencies**
 FD0201 | {id} -> {name, email, password}
+FD0202 | {email} -> {id, name, password}
 **Normal Form** | BCNF
 
 Table R03| company |
@@ -159,7 +160,7 @@ R07      | task                | 100 k (hundreds of thousands) | 100 (hundred) /
 R08      | task_assigned       | 100 k                         | 100 / day
 R09      | comment             | 1 M (million)                 | 1 k (thousands) / day
 R10      | invitation          | 10 k                          | 10 / day
-R11      | notification        | 1 M                           | 1 k / day
+R11      | notifications       | 1 M                           | 1 k / day
 
 ### 2. Proposed Indices
 
@@ -734,27 +735,27 @@ INSERT INTO project_member (users_id, project_id, is_favorite) VALUES
     (60, 30, false);
 
 -- Insert data into the "admins" table, 20 rows
-INSERT INTO admins (name, password) VALUES
-    ('Admin 1', 'adminpass1'),
-    ('Admin 2', 'mypass2'),
-    ('Admin 3', 'secretpass3'),
-    ('Admin 4', 'password4'),
-    ('Admin 5', 'admin123'),
-    ('Admin 6', 'secureadmin'),
-    ('Admin 7', 'adminadmin7'),
-    ('Admin 8', 'adminpass8'),
-    ('Admin 9', 'mypassword9'),
-    ('Admin 10', 'adminadmin10'),
-    ('Admin 11', 'password11'),
-    ('Admin 12', 'secure123'),
-    ('Admin 13', 'adminpass13'),
-    ('Admin 14', 'mypass14'),
-    ('Admin 15', 'adminadmin15'),
-    ('Admin 16', 'password16'),
-    ('Admin 17', 'securepass17'),
-    ('Admin 18', 'mypassword18'),
-    ('Admin 19', 'adminadmin19'),
-    ('Admin 20', 'password20');
+INSERT INTO admins (name, email, password) VALUES
+    ('Admin 1', 'admin1@xample.com', 'adminpass1'),
+    ('Admin 2', 'admin2@xample.com','mypass2'),
+    ('Admin 3', 'admin3@xample.com','secretpass3'),
+    ('Admin 4', 'admin4@xample.com','password4'),
+    ('Admin 5', 'admin5@xample.com','admin123'),
+    ('Admin 6', 'admin6@xample.com','secureadmin'),
+    ('Admin 7', 'admin7@xample.com','adminadmin7'),
+    ('Admin 8', 'admin8@xample.com','adminpass8'),
+    ('Admin 9', 'admin9@xample.com','mypassword9'),
+    ('Admin 10', 'admin10@xample.com','adminadmin10'),
+    ('Admin 11', 'admin11@xample.com','password11'),
+    ('Admin 12', 'admin12@xample.com','secure123'),
+    ('Admin 13', 'admin13@xample.com','adminpass13'),
+    ('Admin 14', 'admin14@xample.com','mypass14'),
+    ('Admin 15', 'admin15@xample.com','adminadmin15'),
+    ('Admin 16', 'admin16@xample.com','password16'),
+    ('Admin 17', 'admin17@xample.com','securepass17'),
+    ('Admin 18', 'admin18@xample.com','mypassword18'),
+    ('Admin 19', 'admin19@xample.com','adminadmin19'),
+    ('Admin 20', 'admin20@xample.com','password20');
     -- Add more admin data here
 
 -- Insert data into the "task_assigned" table, 60 rows
