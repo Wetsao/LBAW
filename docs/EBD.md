@@ -29,7 +29,7 @@ This artifact contains the Relational Schema made by mapping the Conceptual Data
 Relation reference| Relation Compact Notation |
 --- | --- |
 R01 | users(<ins>id</ins>, name **NN**, email **NN** **UK** **CK** valid_email_format, password **NN**)
-R02 | admins(<ins>id</ins>, name **NN**, password **NN**)
+R02 | admins(<ins>id</ins>, name **NN**, email **NN** **UK** **CK** valid_email_format, password **NN**)
 R03 | company(<ins>id</ins>, name **NN**)
 R04 | project(<ins>id</ins>, company_id -> company, name **NN**, details, creation **NN DF** today **CK** creation<=today,delivery **NN CK** delivery>=creation)
 R05 | project_member(<ins>users_id</ins> -> users, <ins>project_id</ins> -> project, is_favourite **NN DF** false)
@@ -69,7 +69,8 @@ Table R02| admins |
 --- | --- |
 **Keys:** {id}
 **Functional Dependencies**
-FD0201 | {id} -> {name, password}
+FD0201 | {id} -> {name, email, password}
+FD0202 | {email} -> {id, name, password}
 **Normal Form** | BCNF
 
 Table R03| company |
@@ -264,8 +265,10 @@ CREATE TABLE users(
 
 CREATE TABLE admins(
     id SERIAL PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL, 
     password TEXT NOT NULL
+    CONSTRAINT valid_email_format CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
 );
 
 CREATE TABLE company(
@@ -716,29 +719,27 @@ INSERT INTO project_member (users_id, project_id, is_favorite) VALUES
     (60, 30, false);
 
 -- Insert data into the "admins" table, 20 rows
-INSERT INTO admins (name, password) VALUES
-    ('Admin 1', 'adminpass1'),
-    ('Admin 2', 'mypass2'),
-    ('Admin 3', 'secretpass3'),
-    ('Admin 4', 'password4'),
-    ('Admin 5', 'admin123'),
-    ('Admin 6', 'secureadmin'),
-    ('Admin 7', 'adminadmin7'),
-    ('Admin 8', 'adminpass8'),
-    ('Admin 9', 'mypassword9'),
-    ('Admin 10', 'adminadmin10'),
-    ('Admin 11', 'password11'),
-    ('Admin 12', 'secure123'),
-    ('Admin 13', 'adminpass13'),
-    ('Admin 14', 'mypass14'),
-    ('Admin 15', 'adminadmin15'),
-    ('Admin 16', 'password16'),
-    ('Admin 17', 'securepass17'),
-    ('Admin 18', 'mypassword18'),
-    ('Admin 19', 'adminadmin19'),
-    ('Admin 20', 'password20');
-    -- Add more admin data here
-
+INSERT INTO admins (name, email, password) VALUES
+    ('Admin 1', 'admin1@xample.com', 'adminpass1'),
+    ('Admin 2', 'admin2@xample.com','mypass2'),
+    ('Admin 3', 'admin3@xample.com','secretpass3'),
+    ('Admin 4', 'admin4@xample.com','password4'),
+    ('Admin 5', 'admin5@xample.com','admin123'),
+    ('Admin 6', 'admin6@xample.com','secureadmin'),
+    ('Admin 7', 'admin7@xample.com','adminadmin7'),
+    ('Admin 8', 'admin8@xample.com','adminpass8'),
+    ('Admin 9', 'admin9@xample.com','mypassword9'),
+    ('Admin 10', 'admin10@xample.com','adminadmin10'),
+    ('Admin 11', 'admin11@xample.com','password11'),
+    ('Admin 12', 'admin12@xample.com','secure123'),
+    ('Admin 13', 'admin13@xample.com','adminpass13'),
+    ('Admin 14', 'admin14@xample.com','mypass14'),
+    ('Admin 15', 'admin15@xample.com','adminadmin15'),
+    ('Admin 16', 'admin16@xample.com','password16'),
+    ('Admin 17', 'admin17@xample.com','securepass17'),
+    ('Admin 18', 'admin18@xample.com','mypassword18'),
+    ('Admin 19', 'admin19@xample.com','adminadmin19'),
+    ('Admin 20', 'admin20@xample.com','password20');
 -- Insert data into the "task_assigned" table, 60 rows
 INSERT INTO task_assigned (users_id, task_id) VALUES
     (7, 1),
