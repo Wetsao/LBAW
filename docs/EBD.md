@@ -376,10 +376,10 @@ CREATE TABLE comment(
 
 
 CREATE TABLE invitation(
+    id SERIAL PRIMARY KEY,
     project_id INTEGER NOT NULL REFERENCES project(id) ON DELETE CASCADE,
     users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     project_coordinator_id INTEGER NOT NULL REFERENCES project_coordinator(id) ON DELETE CASCADE,
-    PRIMARY KEY(project_id, users_id, project_coordinator_id)
 );
 
 CREATE TABLE notifications(
