@@ -393,6 +393,109 @@ CREATE TABLE notifications(
     TYPE notification_type NOT NULL,
     creation TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
+
+-------------------------------------------------------------------------------------------------------------------------------
+-- INDEXES
+-------------------------------------------------------------------------------------------------------------------------------
+
+CREATE INDEX task_assigned_idx ON task_assigned USING btree (users_id);
+
+CREATE INDEX idx_users_email ON users USING hash (email);
+
+CREATE INDEX idx_task_project_id ON task USING btree (project_id);
+
+-- FULL-TEXT SEARCH INDEX
+
+-- Add column to work to store computed ts_vectors.
+ALTER TABLE work
+ADD COLUMN tsvectors TSVECTOR;
+
+-- Create a function to automatically update ts_vectors.
+CREATE FUNCTION project_search_update() RETURNS TRIGGER AS $$
+BEGIN
+ IF TG_OP = 'INSERT' THEN
+        NEW.tsvectors = (
+         setweight(to_tsvector('english', NEW.title), 'A') ||
+         setweight(to_tsvector('english', NEW.obs), 'B')
+        );
+ END IF;
+ IF TG_OP = 'UPDATE' THEN
+         IF (NEW.name <> OLD.name OR NEW.details <> OLD.details) THEN
+           NEW.tsvectors = (
+             setweight(to_tsvector('english', NEW.name), 'A') ||
+             setweight(to_tsvector('english', NEW.details), 'B')
+           );
+         END IF;
+ END IF;
+ RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+-- Create a trigger before insert or update on work.
+CREATE TRIGGER project_search_update
+ BEFORE INSERT OR UPDATE ON project
+ FOR EACH ROW
+ EXECUTE PROCEDURE project_search_update();
+
+
+-- Finally, create a GIN index for ts_vectors.
+CREATE INDEX search_idx ON work USING GIN (tsvectors);
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+-- TRIGGER
+-------------------------------------------------------------------------------------------------------------------------------
+
+-- TRIGGER 1
+
+CREATE FUNCTION prevent_duplicate_assignment() RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM task_assigned WHERE users_id = NEW.users_id AND task_id = NEW.task_id) THEN
+        RAISE EXCEPTION 'User is already assigned to this task';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_duplicate_assignment_trigger
+BEFORE INSERT ON task_assigned
+FOR EACH ROW
+EXECUTE FUNCTION prevent_duplicate_assignment();
+
+-- TRIGGER 2
+
+CREATE OR REPLACE FUNCTION update_task_status_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.delivery < NOW() THEN AND NEW.delivery != 'Completed'
+    NEW.status = 'Overdue';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER task_update_status
+BEFORE INSERT OR UPDATE ON task
+FOR EACH ROW
+EXECUTE FUNCTION update_task_status_trigger();
+
+-------------------------------------------------------------------------------------------------------------------------------
+-- TRANSACTION
+-------------------------------------------------------------------------------------------------------------------------------
+
+-- TRANSACTION 1
+
+BEGIN TRANSACTION
+
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+
+INSERT INTO project_member(users_id, project_id, is_favorite)
+    VALUES ($users_id, $project_id, $is_favorite);
+
+INSERT INTO project_coordinator(id, users_id, project_id)
+    VALUES ($id, $users_id, $project_id);
+
+END TRANSACTION;
 ```
 
 ### A.2. Database Population
