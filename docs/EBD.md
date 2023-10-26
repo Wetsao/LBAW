@@ -37,8 +37,8 @@ R06 | project_coordinator(<ins>id</ins>, users_id -> users, project_id -> projec
 R07 | task(<ins>id</ins>, project_id -> project, creator -> users, name **NN**, details, status **NN**, creation **NN DF** today **CK** creation<=today, delivery **NN CK** delivery>=creation)
 R08 | task_assigned(<ins>users_id</ins> -> users, <ins>task_id</ins> -> task)
 R09 | comment(<ins>id</ins>, task_id -> task, author -> users, content **NN**, creation **NN DF** today **CK** creation<=today)
-R10 | invitation(<ins>project_id</ins> -> project, <ins>users_id</ins> -> users, <ins>project_coordinator_id</ins> -> project_coordinator)
-R11 | notifications(<ins>id</ins>, creation **NN DF** today **CK** creation<=today, dismissed **NN**, users->user **NN**, inviation->invitation, comment->comment, task->task, project->project, notification_type **NN**)
+R10 | invitation(<ins>id</ins>, project_id -> project, users_id -> users,project_coordinator_id</ins> -> project_coordinator)
+R11 | notifications(<ins>id</ins>, dismissed **NN**, users_id -> user **NN**, invitation_id -> invitation, comment_id -> comment, task_id -> task, project_id -> project, notification_type **NN**, creation **NN DF** today **CK** creation<=today)
 
 Legend:
 
@@ -123,15 +123,16 @@ FD0901 | {id} -> {task_id, author, content, creation}
 
 Table R010| invitation |
 --- | --- |
-**Keys:** {project_id, users_id, project_coordinator_id}
+**Keys:** {id}
 **Functional Dependencies** | none
+FD1001 | {id} -> {project_id, users_id, project_coordinator_id}
 **Normal Form** | BCNF
 
 Table R11| notification |
 --- | --- |
 **Keys** | {id}
 **Functional Dependencies:**
-FD1101 | {id} -> {creation, dismissed, users, inviation, comment, task, project, notification_type}
+FD1101 | {id} -> {creation, dismissed, users_id, inviation_id, comment_id, task_id, project_id, notification_type}
 **NORMAL FORM** | BCNF
 
 Because all relations are in the Boyce–Codd Normal Form (BCNF), the relational schema is also in the BCNF and, therefore, the schema does not need to be further normalized.
@@ -334,25 +335,16 @@ CREATE TABLE invitation(
     PRIMARY KEY(project_id, users_id, project_coordinator_id)
 );
 
-
-CREATE TABLE notification (
+CREATE TABLE notifications(
     id SERIAL PRIMARY KEY,
-    notification_type NOTIFICATION_TYPE NOT NULL,
-    creation TODAY NOT NULL,
-    dismissed BOOLEAN NOT NULL DEFAULT FALSE,
-    users INTEGER NOT NULL,
-    invitation INTEGER,
-    comment INTEGER,
-    task INTEGER,
-    project INTEGER,
-    FOREIGN KEY (users) REFERENCES users ON DELETE CASCADE,
-    FOREIGN KEY (invitation) REFERENCES invitation ON DELETE CASCADE,
-    FOREIGN KEY (comment) REFERENCES comment ON DELETE CASCADE,
-    FOREIGN KEY (task) REFERENCES task ON DELETE CASCADE,
-    FOREIGN KEY (project) REFERENCES project ON DELETE CASCADE,
-    CHECK (
-        (comment IS NOT NULL)::INTEGER + (project IS NOT NULL)::INTEGER = 1
-    )
+    dismissed BOOLEAN NOT NULL,
+    users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    invitation_id INTEGER REFERENCES invitation(id) ON DELETE CASCADE,
+    comment_id INTEGER REFERENCES comment(id) ON DELETE CASCADE,
+    task_id INTEGER REFERENCES task(id) ON DELETE CASCADE,
+    project_id INTEGER REFERENCES project(id) ON DELETE CASCADE,
+    TYPE notification_type NOT NULL,
+    creation TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 ```
 
