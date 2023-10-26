@@ -214,26 +214,72 @@ Index                | IDX11
 **Justification**    |
 **SQL Code**         |
 ```sql
+
 ```
 
 ### 3. Triggers
 
 Trigger         | TRIGGER01
 ---             | ---
-**Description** | 
+**Description** | Prevents duplicated task assignments
 **SQL Code**    |
 ```sql
+CREATE FUNCTION prevent_duplicate_assignment() RETURNS TRIGGER AS $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM task_assigned WHERE users_id = NEW.users_id AND task_id = NEW.task_id) THEN
+        RAISE EXCEPTION 'User is already assigned to this task';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER prevent_duplicate_assignment_trigger
+BEFORE INSERT ON task_assigned
+FOR EACH ROW
+EXECUTE FUNCTION prevent_duplicate_assignment();
+```
+
+Trigger         | TRIGGER01
+---             | ---
+**Description** | Auto updating task status to overdue if not completed by the delivery date.
+**SQL Code**    |
+```sql
+CREATE OR REPLACE FUNCTION update_task_status_trigger()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.delivery < NOW() THEN AND NEW.delivery != 'Completed'
+    NEW.status = 'Overdue';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER task_update_status
+BEFORE INSERT OR UPDATE ON task
+FOR EACH ROW
+EXECUTE FUNCTION update_task_status_trigger();
 ```
 
 ### 4. Transactions
 
 Transaction         | TRAN01
 ---                 | ---
-**Description**     |
-**Justification**   |
-**Isolation Level** |
+**Description**     | Addition of a generic project coordinator
+**Justification**   | In order to maintain consistency, it's necessary to use a transaction to ensure that all the code executes without errors. If an error occurs, a ROLLBACK is issued. The isolation level is Repeatable Read, because, otherwise, an update of users_id could happen, due to an insert in the table work committed by a concurrent transaction, and as a result, inconsistent data would be stored.
+**Isolation Level** | REPEATABLE READ
 **SQL Code**        |
 ```sql
+BEGIN TRANSACTION
+
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+
+INSERT INTO project_member(users_id, project_id, is_favorite)
+    VALUES ($users_id, $project_id, $is_favorite);
+
+INSERT INTO project_coordinator(id, users_id, project_id)
+    VALUES ($id, $users_id, $project_id);
+
+END TRANSACTION;
 ```
 
 ## Annex A. SQL Code
