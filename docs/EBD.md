@@ -334,8 +334,25 @@ CREATE TABLE invitation(
     PRIMARY KEY(project_id, users_id, project_coordinator_id)
 );
 
-CREATE TABLE notifications(
 
+CREATE TABLE notification (
+    id SERIAL PRIMARY KEY,
+    notification_type NOTIFICATION_TYPE NOT NULL,
+    creation TODAY NOT NULL,
+    dismissed BOOLEAN NOT NULL DEFAULT FALSE,
+    users INTEGER NOT NULL,
+    invitation INTEGER,
+    comment INTEGER,
+    task INTEGER,
+    project INTEGER,
+    FOREIGN KEY (users) REFERENCES users ON DELETE CASCADE,
+    FOREIGN KEY (invitation) REFERENCES invitation ON DELETE CASCADE,
+    FOREIGN KEY (comment) REFERENCES comment ON DELETE CASCADE,
+    FOREIGN KEY (task) REFERENCES task ON DELETE CASCADE,
+    FOREIGN KEY (project) REFERENCES project ON DELETE CASCADE,
+    CHECK (
+        (comment IS NOT NULL)::INTEGER + (project IS NOT NULL)::INTEGER = 1
+    )
 );
 ```
 
