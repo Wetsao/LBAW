@@ -501,19 +501,30 @@ INSERT INTO project_coordinator (users_id, project_id) VALUES
     (39, 30);
 
 -- Insert data into the "invitation" table, 10 rows
-INSERT INTO invitation (project_id, users_id, project_coordinator_id) VALUES
-    (1, 2, 1),
-    (3, 1, 4),
-    (5, 3, 2),
-    (7, 4, 6),
-    (9, 5, 8),
-    (11, 6, 10),
-    (13, 7, 3),
-    (15, 8, 5),
-    (17, 9, 7),
-    (19, 10, 9);
+INSERT INTO invitation (id, project_id, users_id, project_coordinator_id) VALUES
+    (1, 1, 2, 1),
+    (2, 3, 1, 4),
+    (3, 5, 3, 2),
+    (4, 7, 4, 6),
+    (5, 9, 5, 8),
+    (6, 11, 6, 10),
+    (7, 13, 7, 3),
+    (8, 15, 8, 5),
+    (9, 17, 9, 7),
+    (10, 19, 10, 9);
 
-    -- Add more invitation data here
+-- Insert data into the "notifications" table, 8 rows
+INSERT INTO notifications (dismissed, users_id, invitation_id, comment_id, task_id, project_id, notification_type, creation) VALUES
+  (false, 1, 1, null, 4, null, 'project_notification', '2023-10-26T08:00:00Z'),
+  (false, 2, null, 2, null, 3, 'invitation_notification', '2023-10-26T09:30:00Z'),
+  (true, 1, null, null, 6, 2, 'task_notification', '2023-10-26T10:15:00Z'),
+  (false, 2, null, null, null, 3, 'comment_notification', '2023-10-26T11:45:00Z');
+  (false, 3, 3, null, null, 1, 'invitation_notification', '2023-10-26T13:30:00Z'),
+  (true, 4, null, null, 7, 2, 'task_notification', '2023-10-26T15:00:00Z'),
+  (false, 5, 4, null, null, 3, 'invitation_notification', '2023-10-26T16:45:00Z'),
+  (true, 6, null, 3, null, 1, 'comment_notification', '2023-10-26T18:15:00Z');
+
+ -- Add more invitation data here
 
 --"company" table, 30 rows
 --"users" table, 120 rows
@@ -526,5 +537,4 @@ INSERT INTO invitation (project_id, users_id, project_coordinator_id) VALUES
 --"task_assigned" table, 60 rows
 --"project_coordinator" table, 30 rows
 --"invitation" table, 10 rows
-
-
+--"notifications" table, 8 rows
