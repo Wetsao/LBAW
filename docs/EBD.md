@@ -60,71 +60,71 @@ notification_type | ENUM('project_notification','invitation_notification','task_
 ### 3. Schema validation
 Table R01| users |
 --- | --- |
-**Keys:** {id},{email} 
-**Functional Dependencies**
+**Keys:** | {id},{email} 
+**Functional Dependencies** |
 FD0101 | {id} -> {name, email, password}
 FD0102 | {email} -> {id, name, password}
 **Normal Form** | BCNF
 
 Table R02| admins |
 --- | --- |
-**Keys:** {id},{email}
-**Functional Dependencies**
+**Keys:** | {id},{email}
+**Functional Dependencies** |
 FD0201 | {id} -> {name, email, password}
 FD0202 | {email} -> {id, name, password}
 **Normal Form** | BCNF
 
 Table R03| company |
 --- | --- |
-**Keys:** {id}
-**Functional Dependencies**
+**Keys:** | {id}
+**Functional Dependencies** | 
 FD0301 | {id} -> {name}
 **Normal Form** | BCNF
 
 Table R04| project |
 --- | --- |
-**Keys:** {id}
-**Functional Dependencies**
+**Keys:** | {id}
+**Functional Dependencies** | 
 FD0401 | {id} -> {company_id, name, details, creation, delivery}
 **Normal Form** | BCNF
 
 Table R05| project_member |
 --- | --- |
-**Keys:** {users_id, project_id}
-**Functional Dependencies**
+**Keys:** | {users_id, project_id}
+**Functional Dependencies** |
 FD0501 | {users_id, project_id} -> {is_favourite}
 **Normal Form** | BCNF
 
 Table R06| project_coordinator |
 --- | --- |
-**Keys:** {id}
-**Functional Dependencies**
+**Keys:** | {id}
+**Functional Dependencies** |
 FD0601 | {id} -> {users_id, project_id}
 **Normal Form** | BCNF
 
 Table R07| task |
 --- | --- |
-**Keys:** {id}
-**Functional Dependencies**
+**Keys:** | {id}
+**Functional Dependencies** | 
 FD0701 | {id} -> {project_id, creator, name, details, status, creation, delivery}
 **Normal Form** | BCNF
 
 Table R08| task_assigned |
 --- | --- |
-**Keys:** {users_id, task_id}
+**Keys:** | {users_id, task_id}
 **Functional Dependencies** | none
 **Normal Form** | BCNF
 
 Table R09| comment |
 --- | --- |
-**Keys:** {id}
-**Functional Dependencies**
+**Keys:** | {id}
+**Functional Dependencies** |
 FD0901 | {id} -> {task_id, author, content, creation}
 **Normal Form** | BCNF
 
 Table R010| invitation |
 --- | --- |
-**Keys:** {id}
+**Keys:** | {id}
 **Functional Dependencies** | none
 FD1001 | {id} -> {project_id, users_id, project_coordinator_id}
 **Normal Form** | BCNF
@@ -132,7 +132,7 @@ FD1001 | {id} -> {project_id, users_id, project_coordinator_id}
 Table R11| notification |
 --- | --- |
 **Keys** | {id}
-**Functional Dependencies:**
+**Functional Dependencies:** |
 FD1101 | {id} -> {creation, dismissed, users_id, inviation_id, comment_id, task_id, project_id, notification_type}
 **NORMAL FORM** | BCNF
 
