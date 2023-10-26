@@ -207,14 +207,42 @@ CREATE INDEX idx_task_project_id ON task USING btree (project_id);
 
 Index                | IDX11
 ---                  | ---
-**Index relation**   |
-**Index attributes** |
-**Index type**       |
-**Clustering**       |
-**Justification**    |
-**SQL Code**         |
-```sql
+**Index relation**   | project
+**Index attributes** | name, details
+**Index type**       | GIN
+**Clustering**       | No
+**Justification**    | To provide full-text search features to look for works based on matching names or details. The index type is GIN because the indexed fields are not expected to change often.
 
+```sql
+ALTER TABLE project
+ADD COLUMN tsvectors TSVECTOR;
+
+CREATE FUNCTION project_search_update() RETURNS TRIGGER AS $$
+BEGIN
+ IF TG_OP = 'INSERT' THEN
+        NEW.tsvectors = (
+         setweight(to_tsvector('english', NEW.name), 'A') ||
+         setweight(to_tsvector('english', NEW.details), 'B')
+        );
+ END IF;
+ IF TG_OP = 'UPDATE' THEN
+         IF (NEW.name <> OLD.name OR NEW.details <> OLD.details) THEN
+           NEW.tsvectors = (
+             setweight(to_tsvector('english', NEW.name), 'A') ||
+             setweight(to_tsvector('english', NEW.details), 'B')
+           );
+         END IF;
+ END IF;
+ RETURN NEW;
+END $$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER project_search_update
+ BEFORE INSERT OR UPDATE ON project
+ FOR EACH ROW
+ EXECUTE PROCEDURE project_search_update();
+
+CREATE INDEX search_idx ON project USING GIN (tsvectors);
 ```
 
 ### 3. Triggers
