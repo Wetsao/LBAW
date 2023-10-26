@@ -163,42 +163,74 @@ R11      | notification        | 1 M                           | 1 k / day
 
 #### 2.1. Performance Indices
 
-Index | IDX01
----   | ---
-**Index relation** |
+Index               | IDX01
+---                 | ---
+**Index relation**  |
 **Index attribute** |
-**Index type** |
-**Cardinality** |
-**Clustering** |
-**Justification** |
-**SQLCode** |escrever SQL
+**Index type**      |
+**Cardinality**     |
+**Clustering**      |
+**Justification**   |
+**SQL Code**        |
+```sql
+```
 
-Index | IDX02
----   | ---
-**Index relation** |
+Index               | IDX02
+---                 | ---
+**Index relation**  |
 **Index attribute** |
-**Index type** |
-**Cardinality** |
-**Clustering** |
-**Justification** |
-**SQLCode** |escrever SQL
+**Index type**      |
+**Cardinality**     |
+**Clustering**      |
+**Justification**   |
+**SQL Code**        | 
+```sql
+```
 
-Index | IDX03
----   | ---
-**Index relation** |
+Index               | IDX03
+---                 | ---
+**Index relation**  |
 **Index attribute** |
-**Index type** |
-**Cardinality** |
-**Clustering** |
-**Justification** |
-**SQLCode** |escrever SQL
+**Index type**      |
+**Cardinality**     |
+**Clustering**      |
+**Justification**   |
+**SQL Code**        | 
+```sql
+```
   
-
 #### 2.2. Full-text Search Indices
+
+Index                | IDX11
+---                  | ---
+**Index relation**   |
+**Index attributes** |
+**Index type**       |
+**Clustering**       |
+**Justification**    |
+**SQL Code**         |
+```sql
+```
 
 ### 3. Triggers
 
+Trigger         | TRIGGER01
+---             | ---
+**Description** | 
+**SQL Code**    |
+```sql
+```
+
 ### 4. Transactions
+
+Transaction         | TRAN01
+---                 | ---
+**Description**     |
+**Justification**   |
+**Isolation Level** |
+**SQL Code**        |
+```sql
+```
 
 ## Annex A. SQL Code
 
