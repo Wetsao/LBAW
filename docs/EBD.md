@@ -336,10 +336,10 @@ CREATE TABLE invitation(
 
 ---
 
-GROUP23156, DD/10/2023
+GROUP23156, 26/10/2023
 
 - Alexandre Morais up201906049
-- Nuno Ramos up201906051
+- Nuno Ramos up201906051 (Editor)
 - Bruno Leal up202008047
 - Vitor Bizarro up202007888
 
