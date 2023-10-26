@@ -154,7 +154,7 @@ R04      | project             | 1 k (thousands)               | 1 / day
 R05      | project_member      | 10 k                          | 10 / day
 R06      | project_coordinator | 1 k                           | 1 / day
 R07      | task                | 100 k (hundreds of thousands) | 100 (hundred) / day
-R08      | task_assigned       |                               | 
+R08      | task_assigned       | 100 k                         | 100 / day
 R09      | comment             | 1 M (million)                 | 1 k (thousands) / day
 R10      | invitation          | 10 k                          | 10 / day
 R11      | notification        | 1 M                           | 1 k / day
@@ -174,27 +174,21 @@ R11      | notification        | 1 M                           | 1 k / day
 ### A.1. Database Schema
 
 ```sql
-DROP TABLE IF EXISTS project CASCADE;
-DROP TABLE IF EXISTS task CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS comment CASCADE;
-DROP TABLE IF EXISTS project_member;
 DROP TABLE IF EXISTS admins;
-DROP TABLE IS EXISTS company;
-DROP TABLE IF EXISTS task_assigned;
+DROP TABLE IF EXISTS company;
+DROP TABLE IF EXISTS project CASCADE;
+DROP TABLE IF EXISTS project_member;
 DROP TABLE IF EXISTS project_coordinator;
+DROP TABLE IF EXISTS task CASCADE;
+DROP TABLE IF EXISTS task_assigned;
+DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS invitation;
 
 DROP TYPE IF EXISTS status;
 
 
 CREATE TYPE status AS ENUM ('Completed', 'Ongoing', 'Paused', 'Abandoned');
-
-
-CREATE TABLE company(
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL
-);
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
@@ -204,6 +198,17 @@ CREATE TABLE users(
     CONSTRAINT valid_email_format CHECK (email ~ '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
 );
 
+CREATE TABLE admins(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL, 
+    password TEXT NOT NULL
+);
+
+CREATE TABLE company(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
 CREATE TABLE project (
     id SERIAL PRIMARY KEY,
     company_id REFERENCES company(id) ON DELETE CASCADE,
@@ -211,6 +216,19 @@ CREATE TABLE project (
     details TEXT,
     creation TIMESTAMP WITH TIME ZONE DEFAULT now(),
     delivery TIMESTAMP WITH TIME ZONE CHECK (delivery >= creation)
+);
+
+CREATE TABLE project_member(
+    users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    project_id INTEGER NOT NULL REFERENCES project(id) ON DELETE CASCADE,
+    is_favorite BOOLEAN DEFAULT FALSE;
+    PRIMARY KEY(project_id, users_id)
+);
+
+CREATE TABLE project_coordinator(
+    id SERIAL PRIMARY KEY,
+    users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    project_id INTEGER NOT NULL REFERENCES project(id) ON DELETE CASCADE
 );
 
 CREATE TABLE task(
@@ -225,6 +243,12 @@ CREATE TABLE task(
 );
 
 
+CREATE TABLE task_assigned(
+    users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    task_id INTEGER NOT NULL REFERENCES task(id) ON DELETE CASCADE,
+    PRIMARY KEY(users_id, task_id)
+);
+
 CREATE TABLE comment(
     id SERIAL PRIMARY KEY,
     author INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -233,30 +257,6 @@ CREATE TABLE comment(
     creation TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
 
-CREATE TABLE project_member(
-    users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    project_id INTEGER NOT NULL REFERENCES project(id) ON DELETE CASCADE,
-    is_favorite BOOLEAN DEFAULT FALSE;
-    PRIMARY KEY(project_id, users_id)
-);
-
-CREATE TABLE admins(
-    id SERIAL PRIMARY KEY,
-    name TEXT NOT NULL, 
-    password TEXT NOT NULL
-);
-
-CREATE TABLE task_assigned(
-    users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    task_id INTEGER NOT NULL REFERENCES task(id) ON DELETE CASCADE,
-    PRIMARY KEY(users_id, task_id)
-);
-
-CREATE TABLE project_coordinator(
-    id SERIAL PRIMARY KEY,
-    users_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    project_id INTEGER NOT NULL REFERENCES project(id) ON DELETE CASCADE
-);
 
 CREATE TABLE invitation(
     project_id INTEGER NOT NULL REFERENCES project(id) ON DELETE CASCADE,
@@ -264,7 +264,6 @@ CREATE TABLE invitation(
     project_coordinator_id INTEGER NOT NULL REFERENCES project_coordinator(id) ON DELETE CASCADE,
     PRIMARY KEY(project_id, users_id, project_coordinator_id)
 );
-
 ```
 
 ### A.2. Database Population
