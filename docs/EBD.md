@@ -38,7 +38,7 @@ R07 | task(<ins>id</ins>, project_id -> project, creator -> users, name **NN**, 
 R08 | task_assigned(<ins>users_id</ins> -> users, <ins>task_id</ins> -> task)
 R09 | comment(<ins>id</ins>, task_id -> task, author -> users, content **NN**, creation **NN DF** today **CK** creation<=today)
 R10 | invitation(<ins>project_id</ins> -> project, <ins>users_id</ins> -> users, <ins>project_coordinator_id</ins> -> project_coordinator)
-R11 | notification()
+R11 | notifications()
 
 Legend:
 
@@ -126,7 +126,7 @@ Table R010| invitation |
 **Functional Dependencies** | none
 **Normal Form** | BCNF
 
-Table R011| notification |
+Table R011| notifications |
 --- | --- |
 **Keys:** {}
 **Functional Dependencies**
