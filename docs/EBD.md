@@ -211,7 +211,7 @@ Index                | IDX11
 **Index attributes** | name, details
 **Index type**       | GIN
 **Clustering**       | No
-**Justification**    | To provide full-text search features to look for works based on matching names or details. The index type is GIN because the indexed fields are not expected to change often.
+**Justification**    | To provide full-text search features to look for projects based on matching names or details. The index type is GIN because the indexed fields are not expected to change often.
 
 ```sql
 ALTER TABLE project
@@ -293,7 +293,7 @@ EXECUTE FUNCTION update_task_status_trigger();
 Transaction         | TRAN01
 ---                 | ---
 **Description**     | Addition of a generic project coordinator
-**Justification**   | In order to maintain consistency, it's necessary to use a transaction to ensure that all the code executes without errors. If an error occurs, a ROLLBACK is issued. The isolation level is Repeatable Read, because, otherwise, an update of users_id could happen, due to an insert in the table work committed by a concurrent transaction, and as a result, inconsistent data would be stored.
+**Justification**   | In order to maintain consistency, it's necessary to use a transaction to ensure that all the code executes without errors. If an error occurs, a ROLLBACK is issued. The isolation level is Repeatable Read, because, otherwise, an update of users_id could happen, due to an insert in the table project_member committed by a concurrent transaction, and as a result, inconsistent data would be stored.
 **Isolation Level** | REPEATABLE READ
 **SQL Code**        |
 ```sql
