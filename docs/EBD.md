@@ -19,7 +19,7 @@ This artifact presents the Conceptual Data Model using a UML class diagram to do
 <br />
 
 ### 2. Additional Business Rules
-- GeneralUser is the conceptual name, in order to separate Admins from the rest of the users.
+- BR01. GeneralUser is the conceptual name, in order to separate Admins from the rest of the users.
 
 ## A5: Relational Schema, validation and schema refinement
 
@@ -165,24 +165,24 @@ R11      | notification        | 1 M                           | 1 k / day
 
 Index               | IDX01
 ---                 | ---
-**Index relation**  |task_assigned
-**Index attribute** |users_id
-**Index type**      |B-tree
-**Cardinality**     |Medium
-**Clustering**      |No
-**Justification**   |Every time the user needs to see tasks assigned to him, a querry will be issued. This table will be frequently updated so clustering is not efficient. Also there will be multiple rows with the same 'users_id' value, so hash was also not efficient.
+**Index relation**  | task_assigned
+**Index attribute** | users_id
+**Index type**      | B-tree
+**Cardinality**     | Medium
+**Clustering**      | No
+**Justification**   | Every time the user needs to see tasks assigned to him, a querry will be issued. This table will be frequently updated so clustering is not efficient. Also there will be multiple rows with the same 'users_id' value, so hash was also not efficient.
 ```sql
 CREATE INDEX task_assigned_idx ON task_assigned USING btree (users_id);
 ``` 
 
 Index               | IDX02
 ---                 | ---
-**Index relation**  |users
-**Index attribute** |email
-**Index type**      |hash
-**Cardinality**     |Medium
-**Clustering**      |No
-**Justification**   |In authentication we will filter 'users' 'email' frequently so an index here will greatly increse efficiency. Email is an exact match so hash is the best option.
+**Index relation**  | users
+**Index attribute** | email
+**Index type**      | hash
+**Cardinality**     | Medium
+**Clustering**      | No
+**Justification**   | In authentication we will filter 'users' 'email' frequently so an index here will greatly increse efficiency. Email is an exact match so hash is the best option.
 
 ```sql
 CREATE INDEX idx_users_email ON users USING hash (email);
@@ -190,12 +190,12 @@ CREATE INDEX idx_users_email ON users USING hash (email);
 
 Index               | IDX03
 ---                 | ---
-**Index relation**  |task
-**Index attribute** |project_id
-**Index type**      |B-tree
-**Cardinality**     |Medium
-**Clustering**      |No
-**Justification**   |Table 'task' will be frequently accessed for showing tasks in a certain project. A b-tree index allows for faster date range queries based on the 'project_id'.
+**Index relation**  | task
+**Index attribute** | project_id
+**Index type**      | B-tree
+**Cardinality**     | Medium
+**Clustering**      | No
+**Justification**   | Table 'task' will be frequently accessed for showing tasks in a certain project. A b-tree index allows for faster date range queries based on the 'project_id'.
 ```sql
 CREATE INDEX idx_task_project_id ON task USING btree (project_id);
 ```
