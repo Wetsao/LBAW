@@ -163,6 +163,37 @@ R11      | notification        | 1 M                           | 1 k / day
 
 #### 2.1. Performance Indices
 
+Index | IDX01
+---   | ---
+**Index relation** |
+**Index attribute** |
+**Index type** |
+**Cardinality** |
+**Clustering** |
+**Justification** |
+**SQLCode** |escrever SQL
+
+Index | IDX02
+---   | ---
+**Index relation** |
+**Index attribute** |
+**Index type** |
+**Cardinality** |
+**Clustering** |
+**Justification** |
+**SQLCode** |escrever SQL
+
+Index | IDX03
+---   | ---
+**Index relation** |
+**Index attribute** |
+**Index type** |
+**Cardinality** |
+**Clustering** |
+**Justification** |
+**SQLCode** |escrever SQL
+  
+
 #### 2.2. Full-text Search Indices
 
 ### 3. Triggers
