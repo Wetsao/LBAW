@@ -22,6 +22,11 @@ function addEventListeners() {
     let cardCreator = document.querySelector('article.card form.new_card');
     if (cardCreator != null)
       cardCreator.addEventListener('submit', sendCreateCardRequest);
+
+    let projectDeleters = document.querySelectorAll('b.delete-project-btn');
+    [].forEach.call(projectDeleters, function(deleter) {
+      deleter.addEventListener('click', sendDeleteProjectRequest);
+    })
   }
   
   function encodeForAjax(data) {
@@ -70,6 +75,12 @@ function addEventListeners() {
   
     sendAjaxRequest('delete', '/api/cards/' + id, null, cardDeletedHandler);
   }
+
+  function sendDeleteProjectRequest(event) {
+    let id = this.closest('b.delete-project-btn').getAttribute('data-project-id');
+
+    sendAjaxRequest('delete', '/api/homepage/' + id, null, projectDeleteHandler);
+  }
   
   function sendCreateCardRequest(event) {
     let name = this.querySelector('input[name=name]').value;
@@ -114,6 +125,13 @@ function addEventListeners() {
     if (this.status != 200) window.location = '/';
     let card = JSON.parse(this.responseText);
     let article = document.querySelector('article.card[data-id="'+ card.id + '"]');
+    article.remove();
+  }
+
+  function projectDeleteHandler() {
+    if (this.status != 200) window.location = '/';
+    let project = JSON.parse(this.responseText);
+    let article = document.querySelector('b.decardlete-project-btn[data-project-id="'+ project.id + '"]');
     article.remove();
   }
   
